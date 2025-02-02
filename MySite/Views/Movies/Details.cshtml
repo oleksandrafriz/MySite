@@ -1,0 +1,32 @@
+﻿@model MySite.Models.Movie
+
+@{
+    ViewData["Title"] = Model.title;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/movieDetails.css" />
+}
+
+<div class="movie-details">
+    
+    <div class="movie-poster">
+        @if (!string.IsNullOrEmpty(Model.movie_img))
+        {
+            <img src="@Url.Content("~/images/" + Model.movie_img)" alt="Постер" />
+        }
+        else
+        {
+            <span>Немає зображення</span>
+        }
+    </div>
+
+    <div class="movie-info">
+        <h1 class="title">@Model.title</h1>
+        <p><strong>Duration: </strong>@Model.movie_time хв</p>
+        <p><strong>Description: </strong>@Model.description</p>
+        <p><strong>Release date: </strong>@Model.release_date</p>
+        <p><strong>Genre: </strong>@string.Join(", ", Model.MovieGenres.Select(mg => mg.Genre.name))</p>
+
+    </div>
+</div>

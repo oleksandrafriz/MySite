@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Реєстрація";
+}
+
+<h2>Реєстрація</h2>
+
+<form method="post">
+    <label>Логін:</label>
+    <input type="text" name="username" required />
+    <br />
+    <label>Email:</label>
+    <input type="email" name="email" required />
+    <br />
+    <label>Пароль:</label>
+    <input type="password" name="password" required />
+    <br />
+    <button type="submit">Зареєструватися</button>
+</form>
+
+<a href="@Url.Action("Login", "Account")">Увійти</a>
