@@ -35,6 +35,20 @@ namespace MySite.Controllers
                 return NotFound();
             }
 
+            var username = HttpContext.Session.GetString("User");
+            var isFavorite = false;
+
+            if (username != null)
+            {
+                var user = _context.Users.FirstOrDefault(u => u.username == username);
+                if (user != null)
+                {
+                    isFavorite = _context.Favorites.Any(f => f.user_id == user.Id && f.movie_id == id);
+                }
+            }
+
+            ViewBag.IsFavorite = isFavorite;
+
             return View(movie);
         }
 

@@ -32,7 +32,9 @@
 
     <form method="post" action="@Url.Action("AddToFavorites", "Movies")" id="addToFavoritesForm">
         <input type="hidden" name="movieId" value="@Model.Id" />
-        <button type="submit">Додати в обране</button>
+        <button type="submit" id="favoriteButton" @(ViewBag.IsFavorite ? "disabled" : "")>
+            @(ViewBag.IsFavorite ? "Уже в обраному" : "Додати в обране")
+        </button>
     </form>
 
     @section Scripts {
@@ -42,8 +44,18 @@
                 var user = '@Context.Session.GetString("User")';
 
                 if (!user) {
+                    // Якщо користувач не увійшов, скасовуємо відправку форми
                     event.preventDefault();
                     alert("Будь ласка, увійдіть, щоб додати фільм в обране.");
+                }
+            });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var favoriteButton = document.getElementById("favoriteButton");
+
+                if (favoriteButton && favoriteButton.disabled) {
+                    favoriteButton.style.backgroundColor = "#ccc"; // Сіра кнопка
+                    favoriteButton.style.cursor = "default";
                 }
             });
         </script>

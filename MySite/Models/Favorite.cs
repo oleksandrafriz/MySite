@@ -14,7 +14,7 @@ namespace MySite.Models
         [ForeignKey("Movie")]
         public int movie_id { get; set; }
 
-        public User User { get; set; }  // Навігаційна властивість
-        public Movie Movie { get; set; } // Навігаційна властивість
+        public User User { get; set; }
+        public Movie Movie { get; set; }
     }
 }
