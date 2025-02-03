@@ -37,5 +37,66 @@ namespace MySite.Controllers
 
             return View(movie);
         }
+
+        public IActionResult AddToFavorites(int movieId)
+        {
+            var username = HttpContext.Session.GetString("User");
+            if (username == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var user = _context.Users.FirstOrDefault(u => u.username == username);
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            try
+            {
+                var favorite = new Favorite
+                {
+                    user_id = user.Id,
+                    movie_id = movieId
+                };
+                Console.WriteLine($"Adding Favorite: user_id={favorite.user_id}, movie_id={favorite.movie_id}");
+                _context.Favorites.Add(favorite);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Error: {ex.InnerException?.Message}");
+                return StatusCode(500, "Помилка при збереженні у БД.");
+            }
+
+            return RedirectToAction("Details", "Movies", new { id = movieId });
+        }
+
+
+
+        public IActionResult Favorites()
+        {
+            var username = HttpContext.Session.GetString("User");
+            if (username == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var user = _context.Users.FirstOrDefault(u => u.username == username);
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var favoriteMovies = _context.Favorites
+                .Where(f => f.user_id == user.Id)
+                .Select(f => f.Movie)
+                .ToList();
+
+            return View(favoriteMovies);
+        }
+
+        
+
     }
 }

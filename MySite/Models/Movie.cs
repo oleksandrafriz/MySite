@@ -9,13 +9,11 @@
         public DateTime release_date { get; set; }
         public int movie_time { get; set; }
 
-        // Ініціалізація MovieGenres
         public ICollection<MovieGenre> MovieGenres { get; set; } = new List<MovieGenre>();
 
-        // Ініціалізація MovieActors
         public ICollection<MovieActor> MovieActors { get; set; } = new List<MovieActor>();
 
-        // отримання списку акторів через MovieActors
         public List<Actor> Actors => MovieActors.Select(ma => ma.Actor).ToList();
+        public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
     }
 }

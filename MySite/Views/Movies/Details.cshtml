@@ -29,4 +29,23 @@
         <p><strong>Genre: </strong>@string.Join(", ", Model.MovieGenres.Select(mg => mg.Genre.name))</p>
 
     </div>
+
+    <form method="post" action="@Url.Action("AddToFavorites", "Movies")" id="addToFavoritesForm">
+        <input type="hidden" name="movieId" value="@Model.Id" />
+        <button type="submit">Додати в обране</button>
+    </form>
+
+    @section Scripts {
+        <script>
+            document.getElementById("addToFavoritesForm").addEventListener("submit", function (event) {
+                // Перевіряємо, чи користувач увійшов
+                var user = '@Context.Session.GetString("User")';
+
+                if (!user) {
+                    event.preventDefault();
+                    alert("Будь ласка, увійдіть, щоб додати фільм в обране.");
+                }
+            });
+        </script>
+    }
 </div>

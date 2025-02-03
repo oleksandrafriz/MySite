@@ -8,6 +8,8 @@ namespace MySite.Models
         public DbSet<Genre> Genres { get; set; }
         public DbSet<MovieGenre> MovieGenres { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
+
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {

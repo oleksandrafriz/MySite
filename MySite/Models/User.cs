@@ -6,5 +6,6 @@
         public string username { get; set; }
         public string email { get; set; }
         public string password_hash { get; set; }
+        public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
     }
 }
