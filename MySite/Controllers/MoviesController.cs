@@ -110,7 +110,31 @@ namespace MySite.Controllers
             return View(favoriteMovies);
         }
 
-        
+
+        public IActionResult RemoveFromFavorites(int movieId)
+        {
+            var username = HttpContext.Session.GetString("User");
+            if (username == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var user = _context.Users.FirstOrDefault(u => u.username == username);
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var favorite = _context.Favorites.FirstOrDefault(f => f.user_id == user.Id && f.movie_id == movieId);
+            if (favorite != null)
+            {
+                _context.Favorites.Remove(favorite);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Favorites");
+        }
+
 
     }
 }

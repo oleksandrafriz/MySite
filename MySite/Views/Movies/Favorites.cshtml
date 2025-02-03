@@ -36,7 +36,8 @@
                         </a>
                     </td>
                     <td>
-                        <form asp-controller="Movies" asp-action="Delete" asp-route-id="@movie.Id" method="post" onsubmit="return confirm('Ви впевнені, що хочете видалити цей фільм?');">
+                        <form asp-controller="Movies" asp-action="RemoveFromFavorites" method="post">
+                            <input type="hidden" name="movieId" value="@movie.Id" />
                             <button type="submit" class="btn btn-danger">Видалити</button>
                         </form>
                     </td>

@@ -27,7 +27,7 @@
         <p><strong>Description: </strong>@Model.description</p>
         <p><strong>Release date: </strong>@Model.release_date</p>
         <p><strong>Genre: </strong>@string.Join(", ", Model.MovieGenres.Select(mg => mg.Genre.name))</p>
-
+        <p><strong>Кількість користувачів, які додали цей фільм в обране:</strong> @ViewBag.FavoritesCount</p>
     </div>
 
     <form method="post" action="@Url.Action("AddToFavorites", "Movies")" id="addToFavoritesForm">
@@ -54,7 +54,7 @@
                 var favoriteButton = document.getElementById("favoriteButton");
 
                 if (favoriteButton && favoriteButton.disabled) {
-                    favoriteButton.style.backgroundColor = "#ccc"; // Сіра кнопка
+                    favoriteButton.style.backgroundColor = "#ccc"; // Неактивна кнопка
                     favoriteButton.style.cursor = "default";
                 }
             });
